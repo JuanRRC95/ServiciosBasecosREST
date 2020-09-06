@@ -1,0 +1,8 @@
+{"nombre":"RunRun","apellido":"Away","edad":18,"cedula":20958531,"materia":["MATEMATICAS","GEOGRAFIA"]}
+{"nombre":"PEPE","apellido":"Perez","edad":23,"cedula":789654123,"materia":["CIENCIAS","FILOSOFIA","MATEMATICAS","GEOGRAFIA"]}
+{"nombre":"PEPE","apellido":"Perez","edad":23,"cedula":5555555,"materia":["CIENCIAS","FILOSOFIA","MATEMATICAS","GEOGRAFIA"]}
+{"nombre":"PEDRO","apellido":"","edad":40,"cedula":1111111,"materia":["CIENCIAS","FILOSOFIA","MATEMATICAS","GEOGRAFIA"]}
+{"nombre":"PEDRO","apellido":"","edad":40,"cedula":0,"materia":["CIENCIAS","FILOSOFIA","MATEMATICAS","GEOGRAFIA"]}
+{"nombre":"PEDRO","apellido":"","edad":18,"cedula":0,"materia":["CIENCIAS","FILOSOFIA","MATEMATICAS","GEOGRAFIA"]}
+{"nombre":"Juan","apellido":"Rodriguez","edad":18,"cedula":20000,"materia":["CIENCIAS","MATEMATICAS","GEOGRAFIA"]}
+{"nombre":"PruebaDePrueba","apellido":"PruebaPerezPrueba","edad":23,"cedula":147258369,"materia":["MATEMATICAS","FISICA","ALGEBRA"]}
