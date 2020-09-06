@@ -14,25 +14,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Asus
+ * Clase que contiene los metodos logicos para la lectura y escritura de ficheros.
+ * @since ServiciosREST 1.0
+ * @version 1.0
+ * @author Juan Ricardo Rodriguez Campos
+ * @author Santiago Gomez Caicedo
  */
 public class LogicaFicheros {
 
     BufferedWriter bw;
     BufferedReader br;
 
-    public void escribeFichero(String json) {
-        //Escribimos en el fichero
-        System.out.println("---- Entre a la logica de fichero ---");
+    /**
+     * Metodo que recibe un String y lo resgitra en el fichero txt
+     * @param json 
+     */
+    public void escribeFichero(String json) {        
         try {
             List<String> listaP = new ArrayList<>();
             listaP = leeFichero();
-            bw = new BufferedWriter(new FileWriter("C:\\JavaLineaDeProfundizacion\\ServiciosREST\\fichero1.txt"));
-            
+            bw = new BufferedWriter(new FileWriter("C:\\JavaLineaDeProfundizacion\\ServiciosREST\\fichero1.txt"));            
             for (String obj : listaP) {
                 if (obj != null) {
-                    //System.out.println(obj);
                     bw.write(obj);
                     bw.newLine();
                     bw.flush();
@@ -47,9 +50,12 @@ public class LogicaFicheros {
 
     }
 
+    /**
+     * Metodo que abre y lee el fichero txt y retorna un lista de tipo String
+     * @return 
+     */
     public List<String> leeFichero()  {
-        //Leemos el fichero y lo mostramos por pantalla
-        List<String> lista = new ArrayList<>();
+       List<String> lista = new ArrayList<>();
         try {
             br = new BufferedReader(new FileReader("C:\\JavaLineaDeProfundizacion\\ServiciosREST\\fichero1.txt"));
             String linea = br.readLine();
@@ -57,23 +63,11 @@ public class LogicaFicheros {
             while (linea != null) {
                 linea = br.readLine();
                 lista.add(linea);
-                //System.out.println(linea);                
-            }
+           }
         } catch (IOException e) {
             System.out.println("Error E/S: " + e);
         }
         return lista;
     }
 
-    /*
-     public String traerJsonProfesores(){
-     List<String> lista = new ArrayList<>();
-     try{
-     lista=leeFichero();
-            
-     }catch(IOException e){
-     System.out.println(e.getMessage());
-     }
-     }
-     */
 }

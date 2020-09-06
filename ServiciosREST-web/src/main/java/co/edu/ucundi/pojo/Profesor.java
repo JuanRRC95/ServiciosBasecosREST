@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.ucundi.pojo;
 
 import java.io.Serializable;
@@ -10,9 +5,13 @@ import java.util.List;
 import javax.validation.constraints.*;
 
 /**
- *
- * @author Asus
+ * Clase que contiene los metodos get y set de la clase Profesor.
+ * @since ServiciosREST 1.0
+ * @version 1.0
+ * @author Juan Ricardo Rodriguez Campos
+ * @author Santiago Gomez Caicedo
  */
+
 public class Profesor implements Serializable{
     
    // @NotNull
@@ -29,21 +28,35 @@ public class Profesor implements Serializable{
 //    @Max(value=2000000000,message = "Cedula incorrecta")
     private int cedula;
     
+    private String correo;
+    
  //   @NotNull
 //    @Size(min=2, max=240,message = "Nombre invalido")
     private List<String> materia;
 
+    /**
+     * 
+     */
     public Profesor(){
         
     }
     
-    
-    public Profesor(String nombre, String apellido, int edad, int cedula, List<String> materia) {       
+    /**
+     * Contructor de la clase
+     * @param nombre
+     * @param apellido
+     * @param edad
+     * @param cedula
+     * @param materia
+     * @param correo 
+     */
+    public Profesor(String nombre, String apellido, int edad, int cedula, List<String> materia,String correo) {       
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.cedula = cedula;
         this.materia = materia;
+        this.correo=correo;
     }
 
 
@@ -87,10 +100,23 @@ public class Profesor implements Serializable{
         this.materia = materia;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     @Override
     public String toString() {
-        return "Profesor{" + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", cedula=" + cedula + ", materia=" + materia + '}';
+        return "Profesor{" + "nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", cedula=" + cedula + ", correo=" + correo + ", materia=" + materia + '}';
     }
+
+    
+
+    
+    
     
     
     

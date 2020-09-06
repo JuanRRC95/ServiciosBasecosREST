@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.ucundi.controller;
 
 /**
- *
- * @author Asus
+ * Clase que contiene los metodos serviciios del proyecto.
+ * @since ServiciosREST 1.0
+ * @version 1.0
+ * @author Juan Ricardo Rodriguez Campos
+ * @author Santiago Gomez Caicedo
  */
 import co.edu.ucundi.exception.Validacion;
 import co.edu.ucundi.logica.LogicaServiceProfesor;
@@ -26,23 +24,29 @@ import javax.ws.rs.core.*;
 @Path("/profesores")
 public class ProfesorController {
 
-    //@Path("/dato/{id}")
+    /**
+     * Servicio GET que retorna los datos de un profesor basandoce en el numero de cedula
+     * @param cedula
+     * @return JSON
+     */
     @Path("/traerPorCedula/{cedula}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response traerPorCedula(@PathParam("cedula") int cedula) {
         System.out.println("Entre al servicio");
         try {
-            Validacion valid = new Validacion();
-            System.out.println("Entre al try");
-            Respuesta respuesta = valid.validarCedula(cedula);
-            return Response.status(Response.Status.fromStatusCode(respuesta.getCodigo())).entity(respuesta.getObjeto()).build();
+            LogicaServiceProfesor logica = new LogicaServiceProfesor();
+            return Response.status(Response.Status.OK).entity(logica.traerProfesorPorCedula(cedula)).build();
         } catch (Exception ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
     }
 
-    //@Path("/dato/{id}")
+    /**
+     * Servicio GET que retorna todos los profesores que contengan la materia ingresada 
+     * @param materia
+     * @return 
+     */
     @Path("/traerPorMateria/{materia}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,11 +55,12 @@ public class ProfesorController {
         LogicaServiceProfesor logica = new LogicaServiceProfesor();
         Respuesta respuesta = logica.traerProfesorPorMateria(materia);
         return Response.status(Response.Status.fromStatusCode(respuesta.getCodigo())).entity(respuesta.getObjeto()).build();
-        //}
-        //return Response.status(Response.Status.OK).entity("No se encontro el estudiante").build();
-
     }
 
+    /**
+     * Servicio Get que retorna todos los profesores que hay en los registros
+     * @return 
+     */
     @Path("/traerProfesores")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -63,25 +68,13 @@ public class ProfesorController {
         System.out.println("Entre al servicio");
         LogicaServiceProfesor logica = new LogicaServiceProfesor();
         return Response.status(Response.Status.OK).entity(logica.traerProfesores()).build();
-        //}
-        //return Response.status(Response.Status.OK).entity("No se encontro el estudiante").build();
-
     }
 
-    /*
-     @Path("/traerMaterias")
-     @GET
-     @Produces(MediaType.APPLICATION_JSON)
-     public Response traerMaterias(){
-        
-        
-     return Response.status(Response.Status.OK).entity(lista).build();
-     //}
-     //return Response.status(Response.Status.OK).entity("No se encontro el estudiante").build();
-
-        
-     }
-     */
+    /**
+    * Servicio POST que que recibe un objeto y lo guarda en el registro
+    * @param profesor
+    * @return 
+    */
     @Path("/insertar")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,83 +82,48 @@ public class ProfesorController {
     public Response insertarProfesor(Profesor profesor) {
         System.out.println("Insercion de Estudiante");
         try {
-            Validacion v = new Validacion();
-            Respuesta respuesta = v.validarProfesor(profesor);
-            return Response.status(Response.Status.fromStatusCode(respuesta.getCodigo())).entity(respuesta).build();
+            LogicaServiceProfesor logica = new LogicaServiceProfesor();
+            logica.registrarProfesor(profesor);
+            return Response.status(Response.Status.NO_CONTENT).entity("Registro exitoso").build();
         } catch (Exception ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
     }
-    /*
     
-     @Path("/traerPorCodigo")
-     @GET
-     @Produces(MediaType.APPLICATION_JSON)
-     public Response traerMateriaPorCodigo(){
-        
-        
-     return Response.status(Response.Status.OK).entity(lista).build();
-     //}
-     //return Response.status(Response.Status.OK).entity("No se encontro el estudiante").build();
-
-        
-     }
-    
-    
-     @Path("/insertar")
-     @POST
-     @Produces(MediaType.APPLICATION_JSON)
-     @Consumes(MediaType.APPLICATION_JSON)
-     public Response insertarEstudiante(Estudiante estudiante) {
-     System.out.println("Información estudiante");
-     System.out.println(estudiante.getNombre() + " " + estudiante.getApellido() + " " + estudiante.getEdad());
-     return Response.status(Response.Status.OK).build();
-     }
-    
-     @Path("/insertar2")
-     @POST
-     @Produces(MediaType.APPLICATION_JSON)
-     @Consumes(MediaType.APPLICATION_JSON)
-     public Response insertarEstudiante(List<Estudiante> estudiante) {
-     System.out.println("Información estudiante");
-        
-     return Response.status(Response.Status.OK).build();
-     }    
+    /**
+     * Servicio PUT que recibe un objeto y lo actualiza en los registros
+     * @param profesor
+     * @return 
      */
-
     @Path("/editar")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response editar(Profesor profesor) {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Editar de Estudiante");
-        System.out.println(profesor.toString());
         try {
-            Validacion valid = new Validacion();
-            Respuesta respuesta = valid.validarProfesorEditar(profesor);
-            //LogicaServiceProfesor logica = new LogicaServiceProfesor();
-            //logica.editarProfesor(profesor);
-            return Response.status(Response.Status.fromStatusCode(respuesta.getCodigo())).entity(respuesta.getMensaje()).build();
+            LogicaServiceProfesor logica = new LogicaServiceProfesor();
+            logica.editarProfesor(profesor);
+            return Response.status(Response.Status.OK).entity("Se actualizo el registro exitosamente").build();
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
-
+    
+    /**
+     * Servicio DELETE que recibe un numero de cedula y elimina el registro que contenga el mismo numero
+     * @param cedula
+     * @return 
+     */
     @Path("eliminar/{cedula}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response eliminar(@PathParam("cedula") int cedula) {
-        //Lógica de base de datos
-        System.out.println("----------------------------------------------------");
-        System.out.println("ELIMINACION de Estudiante");
-        //System.out.println(profesor.toString());
         try {
             LogicaServiceProfesor logica = new LogicaServiceProfesor();
-            Respuesta respuesta = logica.eliminarProfesor(cedula);
-            return Response.status(Response.Status.fromStatusCode(respuesta.getCodigo())).entity(respuesta.getObjeto()).build();
+            logica.eliminarProfesor(cedula);
+            return Response.status(Response.Status.NO_CONTENT).entity("Registro eliminado").build();
         } catch (Exception ex) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
     }
 
