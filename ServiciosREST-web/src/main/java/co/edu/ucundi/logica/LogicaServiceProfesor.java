@@ -142,7 +142,6 @@ public class LogicaServiceProfesor {
                     obj.setApellido(profesorE.getApellido());
                     obj.setEdad(profesorE.getEdad());
                     obj.setCorreo(profesorE.getCorreo());
-                    obj.setMaterias(profesorE.getMaterias());
                 }
             }
             reescribirFichero(lista);
