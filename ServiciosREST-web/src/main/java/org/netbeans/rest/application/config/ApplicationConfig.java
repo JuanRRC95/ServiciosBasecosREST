@@ -30,6 +30,19 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(co.edu.ucundi.controller.ProfesorController.class);
+        resources.add(co.edu.ucundi.exception.Filter.BadRequestExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.EntityNotFoundFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.ExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.ForbiddenExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.InternalServerErrorExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.NotAcceptableExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.NotAllowedExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.NotAuthorizedExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.NotFoundExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.NotSupportedExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.NullPointerExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.ServiceUnavailableExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.WebApplicationExceptionFilter.class);
     }
     
 }
