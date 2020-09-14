@@ -15,6 +15,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 
 /**
  * Clase que contiene los metodos logicos del proyecto.
@@ -49,21 +51,22 @@ public class LogicaServiceProfesor {
      * @return
      * @throws Exception
      */
-    public Profesor traerProfesorPorCedula(int cedula) throws Exception {
+    public Profesor traerProfesorPorCedula(int cedula) throws NotFoundException {
         List<Profesor> lista = new ArrayList<>();
+        Profesor profesor;
         Validacion valid = new Validacion();
         valid.validarCedula(cedula);
         if (valid.validacionExistenciaCedula(cedula)) {
             for (String obj : fichero.leeFichero()) {
                 if (obj != null) {
-                    Profesor profesor = gson.fromJson(obj, Profesor.class);
+                    profesor = gson.fromJson(obj, Profesor.class);
                     if (profesor.getCedula() == cedula) {
                         return profesor;
                     }
                 }
             }
         } else {
-            throw new Exception("La cedula ingresada no existe en los registros");
+            throw new NotFoundException("La cedula ingresada no existe en los registros");
         }
         return null;
     }
@@ -72,7 +75,8 @@ public class LogicaServiceProfesor {
      *Metodo que retorna todos los profesores
      * @return
      */
-    public List<Profesor> traerProfesores() {
+    public Respuesta traerProfesores() {
+        Respuesta respuesta;
         List<Profesor> lista = new ArrayList<>();
         for (String obj : fichero.leeFichero()) {
             if (obj != null) {
@@ -80,7 +84,12 @@ public class LogicaServiceProfesor {
                 lista.add(profesor);
             }
         }
-        return lista;
+        if(!lista.isEmpty()){
+            respuesta = new Respuesta(200, "Registros Encontrados",lista);
+        }else{
+            respuesta = new Respuesta(204, "No hay Registros en el archivo", "No hay Registros en el archivo");
+        }
+        return respuesta ;
     }
 
     /**
@@ -102,7 +111,7 @@ public class LogicaServiceProfesor {
         if (!lista.isEmpty()) {
             return respuesta = new Respuesta(200, "Solicitud exitosa", lista);
         }
-        return respuesta = new Respuesta(400, "", "No hay registros de la materia ingresada");
+        return respuesta = new Respuesta(404, "No hay registros de la materia ingresada", "No hay registros de la materia ingresada");
     }
 
     /**
@@ -110,17 +119,14 @@ public class LogicaServiceProfesor {
      * @param profesor
      * @throws Exception
      */
-    public void registrarProfesor(Profesor profesor) throws Exception {
+    public void registrarProfesor(Profesor profesor)throws BadRequestException {
         LogicaFicheros logica = new LogicaFicheros();
-        Validacion v = new Validacion();
-        v.validarProfesor(profesor);
-        v.validarCorreo(profesor.getCorreo());
+        Validacion valid = new Validacion();  
         String json = gson.toJson(profesor);
-        Validacion valid = new Validacion();
         if (!valid.validacionExistenciaCedula(profesor.getCedula())) {
             logica.escribeFichero(json);
         } else {
-            throw new Exception("La cedula ya se encuentra registrada");
+            throw new NotFoundException("La cedula ya se encuentra registrada");
         }
     }
 
@@ -129,11 +135,9 @@ public class LogicaServiceProfesor {
      * @param profesorE
      * @throws Exception
      */
-    public void editarProfesor(Profesor profesorE) throws Exception {
+    public void editarProfesor(Profesor profesorE) throws NotFoundException {
         List<Profesor> lista = new ArrayList<>();
         Validacion valid = new Validacion();
-        valid.validarProfesor(profesorE);
-        valid.validarCorreo(profesorE.getCorreo());
         lista = traerListadeJson();
         if (valid.validacionExistenciaCedula(profesorE.getCedula())) {
             for (Profesor obj : lista) {
@@ -146,7 +150,7 @@ public class LogicaServiceProfesor {
             }
             reescribirFichero(lista);
         } else {
-            throw new Exception("La cedula no se encuentra registrada");
+            throw new NotFoundException("La cedula no se encuentra registrada");
         }
 
     }
@@ -172,7 +176,7 @@ public class LogicaServiceProfesor {
      * @param cedula
      * @throws Exception
      */
-    public void eliminarProfesor(int cedula) throws Exception {
+    public void eliminarProfesor(int cedula) throws NotFoundException {
         Validacion valid = new Validacion();
         List<Profesor> lista = new ArrayList<>();
         if (valid.validacionExistenciaCedula(cedula)) {
@@ -185,7 +189,7 @@ public class LogicaServiceProfesor {
             }
             reescribirFichero(lista);
         } else {
-            throw new Exception("La cedula no se encuentra registrada");
+            throw new NotFoundException("La cedula no se encuentra registrada");
         }
     }
 

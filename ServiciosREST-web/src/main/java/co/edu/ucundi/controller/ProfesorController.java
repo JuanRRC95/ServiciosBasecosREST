@@ -7,18 +7,16 @@ package co.edu.ucundi.controller;
  * @author Juan Ricardo Rodriguez Campos
  * @author Santiago Gomez Caicedo
  */
-import co.edu.ucundi.exception.Validacion;
+
 import co.edu.ucundi.logica.LogicaServiceProfesor;
 import co.edu.ucundi.pojo.Profesor;
 import co.edu.ucundi.pojo.Respuesta;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.validation.Valid;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+
 
 @Stateless
 @Path("/profesores")
@@ -33,13 +31,10 @@ public class ProfesorController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response traerPorCedula(@PathParam("cedula") int cedula) {
-        System.out.println("Entre al servicio");
-        try {
-            LogicaServiceProfesor logica = new LogicaServiceProfesor();
-            return Response.status(Response.Status.OK).entity(logica.traerProfesorPorCedula(cedula)).build();
-        } catch (Exception ex) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-        }
+        System.out.println("Entre al servicio");      
+        LogicaServiceProfesor logica = new LogicaServiceProfesor();
+        Profesor profesor = logica.traerProfesorPorCedula(cedula);
+        return Response.status(Response.Status.OK).entity(profesor).build();       
     }
 
     /**
@@ -51,7 +46,6 @@ public class ProfesorController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response traerPorMateria(@PathParam("materia") String materia) {
-        System.out.println("Entre al servicio");
         LogicaServiceProfesor logica = new LogicaServiceProfesor();
         Respuesta respuesta = logica.traerProfesorPorMateria(materia);
         return Response.status(Response.Status.fromStatusCode(respuesta.getCodigo())).entity(respuesta.getObjeto()).build();
@@ -65,9 +59,9 @@ public class ProfesorController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response traerProfesores() {
-        System.out.println("Entre al servicio");
         LogicaServiceProfesor logica = new LogicaServiceProfesor();
-        return Response.status(Response.Status.OK).entity(logica.traerProfesores()).build();
+        Respuesta respuesta = logica.traerProfesores();
+        return Response.status(Response.Status.OK).entity(respuesta.getObjeto()).build();
     }
 
     /**
@@ -79,15 +73,11 @@ public class ProfesorController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertarProfesor(Profesor profesor) {
-        System.out.println("Insercion de Estudiante");
-        try {
-            LogicaServiceProfesor logica = new LogicaServiceProfesor();
-            logica.registrarProfesor(profesor);
-            return Response.status(Response.Status.NO_CONTENT).entity("Registro exitoso").build();
-        } catch (Exception ex) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-        }
+    public Response insertarProfesor(@Valid Profesor profesor) {
+        System.out.println("Insercion de Estudiante");       
+        LogicaServiceProfesor logica = new LogicaServiceProfesor();
+        logica.registrarProfesor(profesor);
+        return Response.status(Response.Status.CREATED).entity("Registro exitoso").build();
     }
     
     /**
@@ -99,14 +89,10 @@ public class ProfesorController {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editar(Profesor profesor) {
-        try {
+    public Response editar(Profesor profesor) {       
             LogicaServiceProfesor logica = new LogicaServiceProfesor();
             logica.editarProfesor(profesor);
-            return Response.status(Response.Status.OK).entity("Se actualizo el registro exitosamente").build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }
+            return Response.status(Response.Status.CREATED).entity("Se actualizo el registro exitosamente").build();       
     }
     
     /**
@@ -117,14 +103,10 @@ public class ProfesorController {
     @Path("eliminar/{cedula}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminar(@PathParam("cedula") int cedula) {
-        try {
+    public Response eliminar(@PathParam("cedula") int cedula) {      
             LogicaServiceProfesor logica = new LogicaServiceProfesor();
             logica.eliminarProfesor(cedula);
-            return Response.status(Response.Status.NO_CONTENT).entity("Registro eliminado").build();
-        } catch (Exception ex) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-        }
+            return Response.status(Response.Status.NO_CONTENT).entity("Registro eliminado").build();       
     }
 
 }

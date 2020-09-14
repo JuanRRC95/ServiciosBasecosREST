@@ -14,24 +14,26 @@ import javax.validation.constraints.*;
 
 public class Profesor implements Serializable{
     
-   // @NotNull
-  //  @Size(min=2, max=240,message = "Nombre invalido")
+    @NotNull
+    @Size(min=2, max=240,message = "Nombre invalido")
     private String nombre;
     
-  //  @NotNull
-  //  @Size(min=2, max=240,message = "Nombre invalido")
+    @NotNull
+    @Size(min=2, max=240,message = "Nombre invalido")
     private String apellido;
     
-   // @Min(value=18,message = "La edad debe ser mayor o igual a los 18 años")
+    @Min(value=18,message = "La edad debe ser mayor o igual a los 18 años")
     private int edad;
     
-//    @Max(value=2000000000,message = "Cedula incorrecta")
+    @Max(value=2000000000,message = "Cedula incorrecta")
     private int cedula;
     
+    @Pattern(regexp="^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@"
+                + "[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$")
     private String correo;
     
- //   @NotNull
-//    @Size(min=2, max=240,message = "Nombre invalido")
+   @NotNull
+   @Size(min=2, max=240,message = "Nombre invalido")
     private List<String> materia;
 
     /**

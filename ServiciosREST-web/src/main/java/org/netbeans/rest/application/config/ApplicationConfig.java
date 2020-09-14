@@ -42,6 +42,7 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.ucundi.exception.Filter.NotSupportedExceptionFilter.class);
         resources.add(co.edu.ucundi.exception.Filter.NullPointerExceptionFilter.class);
         resources.add(co.edu.ucundi.exception.Filter.ServiceUnavailableExceptionFilter.class);
+        resources.add(co.edu.ucundi.exception.Filter.ValidationExceptionFilter.class);
         resources.add(co.edu.ucundi.exception.Filter.WebApplicationExceptionFilter.class);
     }
     
