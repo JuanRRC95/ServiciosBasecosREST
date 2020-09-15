@@ -6,6 +6,7 @@
 package co.edu.ucundi.exception.Filter;
 
 import co.edu.ucundi.pojo.ErrorWrraper;
+import java.time.LocalDate;
 import javax.ws.rs.NotAcceptableException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -20,7 +21,8 @@ public class NotAcceptableExceptionFilter implements ExceptionMapper<NotAcceptab
 
     @Override
     public Response toResponse(NotAcceptableException ex) {
-        ErrorWrraper error = new ErrorWrraper(ex.getMessage(), "406", "NOT_ACCEPTABLE");
+        ErrorWrraper error = new ErrorWrraper("Inaceptable","No se acepta la petición",ex.getMessage(),ex.getStackTrace(),
+                    LocalDate.now(), Response.Status.NOT_ACCEPTABLE);
         return Response.status(Response.Status.NOT_ACCEPTABLE).entity(error).build();
     }
 

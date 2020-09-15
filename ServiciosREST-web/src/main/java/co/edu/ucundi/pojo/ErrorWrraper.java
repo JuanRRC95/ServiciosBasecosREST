@@ -6,27 +6,82 @@
 package co.edu.ucundi.pojo;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
+import javax.ws.rs.core.Response.Status;
 
 /**
  *
- * @author ASUS-PC
+ * @author Santiago Gómez Caicedo
+ * @author Juan Ricardo Rodríguez
  */
-public class ErrorWrraper implements Serializable{
-    
-    private String error;
-    
-    private String codigo;
-    
-    private String nombreCodigo;
-    
-    private LocalTime fecha;
+public class ErrorWrraper implements Serializable {
 
-    public ErrorWrraper(String error, String codigo, String nombreCodigo) {
+    private String error;
+    private String descripcion;
+    private String mensajeApp;
+    private StackTraceElement[] trace;
+    private LocalDate fecha;
+    private Status codigo;
+
+    public ErrorWrraper() {
+    }
+
+    public ErrorWrraper(String error, String descripcion, String mensajeApp, StackTraceElement[] trace, LocalDate fecha, Status codigo) {
         this.error = error;
+        this.descripcion = descripcion;
+        this.mensajeApp = mensajeApp;
+        this.trace = trace;
+        this.fecha = fecha;
+        this.codigo=codigo;
+    }
+
+    public ErrorWrraper(String error, String descripcion, String mensajeApp, StackTraceElement[] trace, LocalDate fecha) {
+        this.error = error;
+        this.descripcion = descripcion;
+        this.mensajeApp = mensajeApp;
+        this.trace = trace;
+        this.fecha = fecha;
+    }
+
+    
+    public Status getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Status codigo) {
         this.codigo = codigo;
-        this.nombreCodigo = nombreCodigo;
-        this.fecha =  LocalTime.now();
+    }
+
+    public String getMensajeApp() {
+        return mensajeApp;
+    }
+
+    public void setMensajeApp(String mensajeApp) {
+        this.mensajeApp = mensajeApp;
+    }
+
+    
+
+    public StackTraceElement[] getTrace() {
+        return trace;
+    }
+
+    public void setTrace(StackTraceElement[] trace) {
+        this.trace = trace;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
     public String getError() {
@@ -37,31 +92,17 @@ public class ErrorWrraper implements Serializable{
         this.error = error;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getNombreCodigo() {
-        return nombreCodigo;
-    }
 
-    public void setNombreCodigo(String nombreCodigo) {
-        this.nombreCodigo = nombreCodigo;
-    }
+   
 
-    public LocalTime getFecha() {
-        return fecha;
-    }
+  
 
-    public void setFecha(LocalTime fecha) {
-        this.fecha = fecha;
-    }
-    
-    
-        
-    
 }

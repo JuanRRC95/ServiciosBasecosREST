@@ -23,7 +23,7 @@ import javax.ws.rs.core.*;
 public class ProfesorController {
 
     /**
-     * Servicio GET que retorna los datos de un profesor basandoce en el numero de cedula
+     * Servicio GET que retorna los datos de un profesor basandose en el numero de cedula
      * @param cedula
      * @return JSON
      */

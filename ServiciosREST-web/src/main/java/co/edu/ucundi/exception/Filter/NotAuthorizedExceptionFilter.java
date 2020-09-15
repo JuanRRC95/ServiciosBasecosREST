@@ -6,6 +6,7 @@
 package co.edu.ucundi.exception.Filter;
 
 import co.edu.ucundi.pojo.ErrorWrraper;
+import java.time.LocalDate;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -20,7 +21,8 @@ public class NotAuthorizedExceptionFilter implements ExceptionMapper<NotAuthoriz
 
     @Override
     public Response toResponse(NotAuthorizedException ex) {
-        ErrorWrraper error = new ErrorWrraper(ex.getMessage(), "401", "UNAUTHORIZED");
+        ErrorWrraper error = new ErrorWrraper("Acceso no autorizado","No tiene permiso para acceder a esta petición",ex.getMessage(),ex.getStackTrace(),
+                    LocalDate.now(), Response.Status.UNAUTHORIZED);
         return Response.status(Response.Status.UNAUTHORIZED).entity(error).build();
     }
 

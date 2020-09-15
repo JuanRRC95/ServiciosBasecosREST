@@ -6,6 +6,7 @@
 package co.edu.ucundi.exception.Filter;
 
 import co.edu.ucundi.pojo.ErrorWrraper;
+import java.time.LocalDate;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -20,7 +21,8 @@ public class ForbiddenExceptionFilter implements ExceptionMapper<ForbiddenExcept
 
     @Override
     public Response toResponse(ForbiddenException ex) {
-         ErrorWrraper error = new ErrorWrraper(ex.getMessage(), "403", "FORBIDDEN");
+         ErrorWrraper error = new ErrorWrraper("Recurso no encontrado","El recurso al que desea acceder no se encuentra disponible",ex.getMessage(),ex.getStackTrace(),
+                    LocalDate.now(), Response.Status.FORBIDDEN);
         return Response.status(Response.Status.FORBIDDEN).entity(error).build();
     }
     

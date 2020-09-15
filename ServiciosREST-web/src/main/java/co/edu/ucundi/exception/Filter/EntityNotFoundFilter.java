@@ -6,6 +6,7 @@
 package co.edu.ucundi.exception.Filter;
 
 import co.edu.ucundi.pojo.ErrorWrraper;
+import java.time.LocalDate;
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -20,7 +21,8 @@ public class EntityNotFoundFilter implements ExceptionMapper<EntityNotFoundExcep
 
     @Override
     public Response toResponse(EntityNotFoundException ex) {
-    ErrorWrraper error = new ErrorWrraper(ex.getMessage(), "404", "NOT_FOUND");
+    ErrorWrraper error = new ErrorWrraper("Recurso no encontrado","El recurso al que desea acceder no se encuentra disponible",ex.getMessage(),ex.getStackTrace(),
+                    LocalDate.now(), Response.Status.NOT_FOUND);
         return Response.status(Response.Status.NOT_FOUND).entity(error).build(); 
     }
     

@@ -6,6 +6,7 @@
 package co.edu.ucundi.exception.Filter;
 
 import co.edu.ucundi.pojo.ErrorWrraper;
+import java.time.LocalDate;
 import javax.ws.rs.NotAllowedException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -20,7 +21,8 @@ public class NotAllowedExceptionFilter implements ExceptionMapper<NotAllowedExce
 
     @Override
     public Response toResponse(NotAllowedException ex) {
-        ErrorWrraper error = new ErrorWrraper(ex.getMessage(), "405", "METHOD_NOT_ALLOWED");
+        ErrorWrraper error = new ErrorWrraper("Metodo no permitido","El metodo que intenta acceder no está permitido",ex.getMessage(),ex.getStackTrace(),
+                    LocalDate.now(), Response.Status.METHOD_NOT_ALLOWED);
         return Response.status(Response.Status.METHOD_NOT_ALLOWED).entity(error).build();
     }
 

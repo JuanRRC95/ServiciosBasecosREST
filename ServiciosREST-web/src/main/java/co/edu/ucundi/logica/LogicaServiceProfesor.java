@@ -126,7 +126,7 @@ public class LogicaServiceProfesor {
         if (!valid.validacionExistenciaCedula(profesor.getCedula())) {
             logica.escribeFichero(json);
         } else {
-            throw new NotFoundException("La cedula ya se encuentra registrada");
+            throw new BadRequestException("La cedula ya se encuentra registrada");
         }
     }
 

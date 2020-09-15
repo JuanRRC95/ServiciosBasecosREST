@@ -33,7 +33,7 @@ public class LogicaFicheros {
         try {
             List<String> listaP = new ArrayList<>();
             listaP = leeFichero();
-            bw = new BufferedWriter(new FileWriter("C:\\JavaLineaDeProfundizacion\\ServiciosREST\\fichero1.txt"));            
+            bw = new BufferedWriter(new FileWriter("D:\\Universidad\\Linea 2\\ServiciosBasecosREST-master\\fichero1.txt"));            
             for (String obj : listaP) {
                 if (obj != null) {
                     bw.write(obj);
@@ -57,7 +57,7 @@ public class LogicaFicheros {
     public List<String> leeFichero()  {
        List<String> lista = new ArrayList<>();
         try {
-            br = new BufferedReader(new FileReader("C:\\JavaLineaDeProfundizacion\\ServiciosREST\\fichero1.txt"));
+            br = new BufferedReader(new FileReader("D:\\Universidad\\Linea 2\\ServiciosBasecosREST-master\\fichero1.txt"));
             String linea = br.readLine();
             lista.add(linea);
             while (linea != null) {

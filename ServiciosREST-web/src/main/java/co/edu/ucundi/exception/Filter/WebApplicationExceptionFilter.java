@@ -7,6 +7,7 @@ package co.edu.ucundi.exception.Filter;
 
 
 import co.edu.ucundi.pojo.ErrorWrraper;
+import java.time.LocalDate;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -21,7 +22,8 @@ public class WebApplicationExceptionFilter implements ExceptionMapper<WebApplica
 
     @Override
     public Response toResponse(WebApplicationException ex) {        
-        ErrorWrraper error = new ErrorWrraper(ex.getMessage(), "404", "NOT_FOUND");
+        ErrorWrraper error = new ErrorWrraper("Recurso no encontrado","El recurso al que desea acceder no se encuentra disponible",ex.getMessage(),ex.getStackTrace(),
+                    LocalDate.now(), Response.Status.NOT_FOUND);
         return Response.status(Response.Status.NOT_FOUND).entity(error).build();
     }
     

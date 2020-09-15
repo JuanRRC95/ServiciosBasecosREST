@@ -6,6 +6,7 @@
 package co.edu.ucundi.exception.Filter;
 
 import co.edu.ucundi.pojo.ErrorWrraper;
+import java.time.LocalDate;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -16,12 +17,13 @@ import javax.ws.rs.ext.Provider;
  * @author sago9
  */
 @Provider
-public class BadRequestExceptionFilter implements ExceptionMapper<BadRequestException>{
+public class BadRequestExceptionFilter implements ExceptionMapper<BadRequestException> {
 
     @Override
     public Response toResponse(BadRequestException ex) {
-     ErrorWrraper error = new ErrorWrraper(ex.getMessage(), "400", "BAD_REQUEST");
-        return Response.status(Response.Status.BAD_REQUEST).entity(error).build();    
+        ErrorWrraper error = new ErrorWrraper("Petición inválida", "La petición es erronea", ex.getMessage(), ex.getStackTrace(),
+                LocalDate.now(), Response.Status.BAD_REQUEST);
+        return Response.status(Response.Status.BAD_REQUEST).entity(error).build();
     }
-    
+
 }

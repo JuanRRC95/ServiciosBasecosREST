@@ -6,6 +6,7 @@
 package co.edu.ucundi.exception.Filter;
 
 import co.edu.ucundi.pojo.ErrorWrraper;
+import java.time.LocalDate;
 import javax.ws.rs.ServiceUnavailableException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -20,7 +21,8 @@ public class ServiceUnavailableExceptionFilter implements ExceptionMapper<Servic
 
     @Override
     public Response toResponse(ServiceUnavailableException ex) {
-        ErrorWrraper error = new ErrorWrraper(ex.getMessage(), "503", "SERVICE_UNAVAILABLE");
+        ErrorWrraper error = new ErrorWrraper("Servidor no disponible","El servidor no se encuentra disponible en este momento",ex.getMessage(),ex.getStackTrace(),
+                    LocalDate.now(), Response.Status.SERVICE_UNAVAILABLE);
         return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity(error).build();
 
     }
